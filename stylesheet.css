@@ -57,25 +57,52 @@ table {
  /* End CSS Clear */
 
 body {
-	width: 80%;
+	font-family: helvetica, arial, sans-serif;
+	width: 90%;
+	margin: 0 auto;
+	background-color: grey;
 }
 
 img {
-	width: 100px;
+	display: block;
+	width: auto;
 	height: 100px;
+	margin: 0 auto;
 }
 h1 {
+	font-size: 48px;
+	font-weight: bold;
+	border: 0 0 50px 0;
+	background-color: white;
+	padding: 5px;
+	border-radius: 10px;
+	margin: 10px 0 0 0;	
+	text-align: center;
+}
+h2 {
 	font-size: 36px;
 	font-weight: bold;
 	border: 0 0 50px 0;
+	background-color: white;
+	padding: 5px;
+	border-radius: 10px;
+	margin: 10px 0 0 0;
 }
 .fruit {
 	margin: 0 auto;
 }
 #apple, #orange, #banana, #grape, #pear{
 	display: inline;
-	margin: 20px;
-	width: 250px;
+	float: left;
+	width: 150px;
+	height: 200px;
+	margin: 5px;
+	padding: 5px;
+	background-color: white;
+	border-radius: 10px;
+}
+p {
+	font-size: 12px;
 }
 .button {
 	background-color:#44c767;
@@ -83,7 +110,7 @@ h1 {
 	-webkit-border-radius:10px;
 	border-radius:10px;
 	border:1px solid #18ab29;
-	display:inline-block;
+	display:block;
 	cursor:pointer;
 	color:#ffffff;
 	font-size:17px;
@@ -99,5 +126,15 @@ h1 {
 	position:relative;
 	top:1px;
 }
-
+.current-price {
+	color: green;
+	font-size: 12px;
 }
+.avg-price {
+	font-size: 12px;
+}
+.fruit-counter {
+	font-size: 12px;
+	color: red;
+}
+
