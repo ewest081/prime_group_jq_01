@@ -3,110 +3,87 @@ function randomNumber(min, max) {
 	return Math.floor(Math.random() * (1 + max - min) + min);
 }
 
+function randomPrice(fruit) {
+	var newPrice = randomNumber (fruit.price-0.50, fruit.price+0.50);
+	//Any given fruit is not allowed to go below a cost of 50 cents, 
+	//or above the cost of 9 dollars and 99 cents.
 
-console.log(randomNumber(0.5,9.99));
+	//if goes below 50 cents, set it to 50 cents
+	if (newPrice < 0.50) {
+		newPrice=0.50;
 
-function doTImeStuff() {
-    $('.fruit-counter').countdown({
-        startTime:'00:15',
-        
-        timerEnd : function() {
-            setTimeout(randomNumber(0.5,9.99));
-
-        }
-        // format : 'hh:ss'
-        
-    });
+	//if it goes higher than 9.99, set it to 9.99
+	} else if (newPrice > 9.99) {
+		newPrice=9.99;
+	}
+	fruit.price=newPrice;
+	console.log("new price of " + fruit.name + ": " + fruit.price);
 }
 
-// Prime Group jQuery Challenge
-// jQuery is great! It allows us to do so many things! You and your group will need to flex everything
-//  you know about Javascript, jQuery, and Bootstrap to tackle this challenge.
+//Here's a function that reprices all the fruits
 
-// The Fruit Market
+function repriceAllFruit() {
+	for (var i = 0; i<fruitArray.length; i++) {
+		randomPrice(fruitArray[i]);
 
-// For this challenge, you will be working with 4 commodities; Apples, Oranges, Bananas, and Grapes. 
-// Delicious, right?
+	//Change display price in appropriate div
+	
+	$("[id= " + fruitArray[i].name).children().first().next().children().first().text(fruitArray[i].price);
+};
+};
 
+//The above function needs to run every 15 seconds.
+//Here's how to do that:
 
-
-// When the application loads, you will need to have information for each of the commodities, 
-// specifically the name and the ‘market price’ of each. This information will need to be 
-//displayed in a meaningful way on the DOM.
-
-// Every 15 seconds, the prices should change however, and with it, the listed price on the DOM. 
-// Specifically, the market price of each of the items should fluctuate up or down 50 cents (between 
-// 	1 cent and 50 cents) with each 15 second interval. Any given fruit is not allowed to go below a
-// 	cost of 50 cents, or above the cost of 9 dollars and 99 cents.
-
-
-
-// The information displayed for each of the fruit should have a ‘button like’ functionality where the 
-// user can interact with each of the fruit displays.
-
-// Available to the user is a ‘total cash’ and an inventory display that shows how much of each of the 
-// fruits they have purchased. 
-
-var totalCash = 100
-
-// var myVar = setInterval(myTimer, 1000);
-
-// function myTimer() {
-//     var d = new Date();
-//     document.getElementById("demo").innerHTML = d.toLocaleTimeString();
-//}
-
-
-
-//Also in the user display, should be an ‘average purchased price’, which
-//  shows, on average, how much money they have spent on a given fruit in their inventory.
-
-
-//var grape = {name: 'grape', price: 0, averagePrice: 0, totalSpent: 0, totalPurchased:0} 
-
-var apple = {name: 'apple', price:0, averagePrice: 0, totalSpent: 0, totalPurchased:0}
-var orange = {name: 'orange', price: 0, averagePrice:0, totalSpent:0, totalPurchased:0}
-var banana = {name:'banana', price:0, averagePrice:0, totalSpent:0, totalPurchased:0}
-var pear = {name:'pear', price:1, averagePrice:1, totalSpent:1, totalPurchased:1}
-
-var fruitArray = [orange, apple, banana, pear];
-
-
-// $('button').on('click', '#grapes', function() {
-// 	totalCash-=grapesPrice;
-// 	grapesPurchased++;
-// 	totalSpentOnGrapes+=grapesPrice;
-// 	averageGrapePrice  = totalSpentOnGrapes/grapesPurchased;
-
-// })
+setInterval(repriceAllFruit,15000);
 
 
 $(document).ready(function(){
 	$('button').on('click', function() {
+		//Loop through our array of fruits
 		for (var i=0; i<fruitArray.length;i++) {
+				//Identify the purchased fruit in the fruit array
 		    	if (fruitArray[i].name == $(this).parent().attr('id')) {
-			    	totalCash-=Number(fruitArray[i].price);
-			    	
-					fruitArray[i].totalPurchased= Number(fruitArray[i].totalPurchased) + Number(fruitArray[i].totalPurchased)
-					fruitArray[i].totalSpent= Number(fruitArray[i]) + Number(fruitArray[i].price);
-					fruitArray[i].averagePrice = Number(fruitArray[i].totalSpent)/Number(fruitArray[i].totalPurchased);
-					console.log(fruitArray[i].averagePrice);
-	}	
-			$(this).next().append(fruitArray[i].averagePrice);
+		    		if (totalCash>= fruitArray[i].price) {
+
+			    		//subtract current price from total cash
+				    	totalCash-=fruitArray[i].price.toFixed(2);
+
+				    	//Change Total Cash display
+				    	$(".total-cash").children().first().next().next().children().first().text(totalCash);
+				    	
+				    	//Increase total # of this kind of fruit purchased by one
+						fruitArray[i].totalPurchased ++;
+						
+						//Increase total spent on this kind of fruit by current cost
+						//of this kind of fruit
+						fruitArray[i].totalSpent+= fruitArray[i].price;
+						
+						//adjust average cost of this kind of fruit
+						fruitArray[i].averagePrice = Math.round(100*fruitArray[i].totalSpent/fruitArray[i].totalPurchased)/100;
+						
+						//Show the updated average cost of this kind of fruit 
+						console.log(fruitArray[i].averagePrice);
+						$(this).parent().children().last().prev().prev().prev().children().first().text(fruitArray[i].averagePrice);
+
+						//Show the increased total number of this kind of fruit bought
+						$(this).parent().children().last().children().first().text(fruitArray[i].totalPurchased);
+					} else  {alert("you broke, fool");
+				};			
+	} 
 	}
 
 	});
 });
 
+var totalCash = 100
+var apple = {name: 'apple', price:0.69, averagePrice: 0.69, totalSpent: 0, totalPurchased:0}
+var orange = {name: 'orange', price: 1.00, averagePrice:1.00, totalSpent:0, totalPurchased:0}
+var banana = {name:'banana', price:0.50, averagePrice:0.50, totalSpent:0, totalPurchased:0}
+var pear = {name:'pear', price:0.75, averagePrice:0.75, totalSpent:0, totalPurchased:0}
+var fruitArray = [orange, apple, banana, pear];
 
 
-// Meaning that by clicking on the display for each of the fruits, allows the user to ‘buy’ one of the
-//  fruits, at market price, which will be deducted from the total cash. The user is not allowed to spend
-//   more than they have.
-
-// The user will start with $100.
-
-// Finally, style the whole experience with Bootstrap
 
 
 

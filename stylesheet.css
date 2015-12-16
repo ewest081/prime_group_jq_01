@@ -58,7 +58,7 @@ table {
 
 body {
 	font-family: helvetica, arial, sans-serif;
-	width: 90%;
+	width: 860px;
 	margin: 0 auto;
 	background-color: grey;
 }
@@ -67,44 +67,62 @@ img {
 	display: block;
 	width: auto;
 	height: 100px;
-	margin: 0 auto;
+	margin: 0 auto 5px;
 }
+
 h1 {
-	font-size: 48px;
+	font-size: 42px;
 	font-weight: bold;
 	border: 0 0 50px 0;
 	background-color: white;
 	padding: 5px;
 	border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
 	margin: 10px 0 0 0;	
 	text-align: center;
 }
+
 h2 {
-	text-align: center;
+	text-align: right;
 	font-size: 36px;
 	font-weight: bold;
-	border: 0 0 50px 0;
+	border: 0 0 10px 0;
 	background-color: white;
 	padding: 5px;
 	border-radius: 10px;
-	margin: 10px 0 0 0;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	margin: 10px 0;
 }
+
+.total-cash {
+	display: inline;
+	
+}
+
 .fruit {
 	margin: 0 auto;
 }
+
 #apple, #orange, #banana, #grape, #pear{
 	display: inline;
 	float: left;
-	width: 150px;
-	height: 200px;
-	margin: 5px;
-	padding: 5px;
+	width: 185px;
+	height: 225px;
+	margin: 3px;
+	padding: 12px;
 	background-color: white;
 	border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
 }
-p {
+
+span {
 	font-size: 12px;
+	padding: 5px;
 }
+
 .button {
 	background-color:#44c767;
 	-moz-border-radius:10px;
@@ -115,27 +133,31 @@ p {
 	cursor:pointer;
 	color:#ffffff;
 	font-size:17px;
-	padding:5px 10px;
+	padding: 5px 10px;
 	text-decoration:none;
 	text-shadow:0px 1px 0px #2f6627;
-	margin: 0 auto;
+	margin: 5px auto 10px;
 }
-.Button:hover {
-	background-color:#5cbf2a;
+
+.button:hover {
+	background-color: #5cff2a;
 }
-.Button:active {
+
+.button:active {
 	position:relative;
-	top:1px;
+	top:3px;
 }
+
+.avg-price, .fruit-counter, .current-price {
+	display: inline;
+	font-size: 12px;
+}
+
 .current-price {
 	color: green;
-	font-size: 12px;
 }
-.avg-price {
-	font-size: 12px;
-}
+
 .fruit-counter {
-	font-size: 12px;
 	color: red;
 }
 
